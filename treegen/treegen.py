@@ -126,6 +126,9 @@ def generate_trees_level_order(n_vertices: int) -> Generator[LevelOrderTree, Non
     if n_vertices <= 0:
         raise ValueError('Number of vertices provided was less than one.')
 
+    elif n_vertices == 1:
+        return []
+
     layout = generate_centered_tree_layout(n_vertices)
 
     while layout is not None:
@@ -135,7 +138,7 @@ def generate_trees_level_order(n_vertices: int) -> Generator[LevelOrderTree, Non
             layout = next_rooted_tree(layout)
 
 
-def level_order_to_adjacency_matrix(tree: LevelOrderTree) -> List[List]:
+def level_order_to_adjacency_matrix(tree: LevelOrderTree) -> List[List[int]]:
     '''Converts the adjacency matrix for the given level order traversal.'''
 
     matrix = [[0] * len(tree) for i in range(len(tree))]
@@ -165,3 +168,11 @@ def generate_trees_adjacency_matrix(n_vertices: int) -> List[List]:
 
     for level_order_tree in generate_trees_level_order(n_vertices):
         yield level_order_to_adjacency_matrix(level_order_tree)
+
+def non_isomorphic_rooted_tree_count(n_vertices: int) -> int:
+    oeis_counts = [1, 1, 1, 1, 2, 3, 6, 11, 23, 47, 106, 235, 551, 1301, 3159, 7741, 19320, 48629, 123867, 317955, 823065, 2144505, 5623756, 14828074, 39299897, 104636890, 279793450, 751065460, 2023443032, 5469566585, 14830871802, 40330829030, 109972410221, 300628862480, 823779631721, 2262366343746, 6226306037178]
+
+    if n_vertices < len(oeis_counts):
+        return oeis_counts[n_vertices]
+    else:
+        raise ValueError(f'Number of vertices must be less than {len(oeis_counts)}')
