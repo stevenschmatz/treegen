@@ -9,8 +9,10 @@ Contact: stevenschmatz@gmail.com
 
 from typing import List, Generator, Tuple
 
+
 VertexIndex = int
 LevelOrderTree = List[VertexIndex]
+
 
 def split_tree(layout: LevelOrderTree) -> Tuple[LevelOrderTree, LevelOrderTree]:
     '''
@@ -25,6 +27,7 @@ def split_tree(layout: LevelOrderTree) -> Tuple[LevelOrderTree, LevelOrderTree]:
     remaining_subtree = [0] + layout[split_index:]
 
     return left_subtree, remaining_subtree
+
 
 def generate_centered_tree_layout(n_vertices: int) -> LevelOrderTree:
     '''
@@ -84,6 +87,7 @@ def candidate_valid(l_tree: LevelOrderTree, r_tree: LevelOrderTree) -> Tuple[boo
 
     return True, l_order
 
+
 def generate_new_candidate(candidate: LevelOrderTree, left_subtree_order: int) -> LevelOrderTree:
     '''
     Generates a valid candidate tree by splitting the tree and extending
@@ -99,6 +103,7 @@ def generate_new_candidate(candidate: LevelOrderTree, left_subtree_order: int) -
         new_candidate[-len(suffix):] = suffix
 
     return new_candidate
+
 
 def next_tree(candidate: LevelOrderTree) -> LevelOrderTree:
     '''Returns the next valid tree layout for a given tree.'''
